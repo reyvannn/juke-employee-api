@@ -24,7 +24,7 @@ public class Employee {
     @Setter(AccessLevel.NONE)
     private LocalDateTime createdAt;
 
-    protected Employee() {
+    public Employee() {
         this.createdAt = LocalDateTime.now();
     }
 
