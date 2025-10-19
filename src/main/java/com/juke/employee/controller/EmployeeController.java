@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
@@ -26,12 +28,14 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<List<EmployeeResponseDTO>> list() {
         List<EmployeeResponseDTO> list = employeeService.getAllEmployees();
+        log.info("200 GET /api/employees");
         return ResponseEntity.ok(list); // 200
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> getById(@PathVariable Long id) {
         EmployeeResponseDTO dto = employeeService.getEmployeeById(id);
+        log.info("200 GET /api/employees/{}", id);
         return ResponseEntity.ok(dto); // 200
     }
 
@@ -51,12 +55,14 @@ public class EmployeeController {
                 .buildAndExpand(created.getId()) // replace path variable with the actual id
                 .toUri();
 
+        log.info("201 POST /api/employees/{}", created.getId());
         return ResponseEntity.created(location).body(created); // 201
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> update(@PathVariable Long id, @Valid @RequestBody EmployeeRequestDTO employeeRequest) {
         EmployeeResponseDTO updated = employeeService.updateEmployee(id, employeeRequest);
+        log.info("200 PUT /api/employees/{}", updated.getId());
         return ResponseEntity.ok(updated); // 200
     }
 
@@ -67,6 +73,7 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
+        log.info("204 DELETE /api/employees/{}", id);
         return ResponseEntity.noContent().build(); // 204
     }
 }

@@ -1,6 +1,7 @@
 package com.juke.employee.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.URI;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -19,6 +21,7 @@ public class GlobalExceptionHandler {
         problemDetail.setDetail(e.getMessage());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         problemDetail.setType(URI.create("/errors/not-found"));
+        log.warn("404 GET {}: {}", request.getRequestURI(), e.getMessage());
         return problemDetail;
     }
 
@@ -29,6 +32,7 @@ public class GlobalExceptionHandler {
         problemDetail.setDetail(e.getMessage());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         problemDetail.setType(URI.create("/errors/duplicate-email"));
+        log.warn("409 {} {}: {}", request.getMethod(), request.getRequestURI(), e.getMessage());
         return problemDetail;
     }
 }
