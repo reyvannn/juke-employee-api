@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.juke</groupId>
-	<artifactId>employee</artifactId>
+	<artifactId>employee-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>employee</name>
 	<description>Employee Management REST API</description>
