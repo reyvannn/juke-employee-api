@@ -13,7 +13,10 @@ This starts the API and a Postgres 17.6 database together.
 docker compose up --build
 ```
 
-The API will be available at http://localhost:8080
+### API Documentation (Swagger)
+After starting the app, the API documentation is available at:
+
+http://localhost:8080/swagger-ui.html
 
 ## API Endpoints
 ```
