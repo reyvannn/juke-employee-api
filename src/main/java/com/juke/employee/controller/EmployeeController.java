@@ -3,6 +3,7 @@ package com.juke.employee.controller;
 import com.juke.employee.dto.EmployeeRequestDTO;
 import com.juke.employee.dto.EmployeeResponseDTO;
 import com.juke.employee.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public EmployeeResponseDTO create(@RequestBody EmployeeRequestDTO employeeRequest) {
+    public EmployeeResponseDTO create(@Valid @RequestBody EmployeeRequestDTO employeeRequest) {
         return employeeService.createEmployee(employeeRequest);
     }
 
     @PutMapping("/{id}")
-    public EmployeeResponseDTO update(@PathVariable Long id, @RequestBody EmployeeRequestDTO employeeRequest) {
+    public EmployeeResponseDTO update(@PathVariable Long id, @Valid @RequestBody EmployeeRequestDTO employeeRequest) {
         return employeeService.updateEmployee(id, employeeRequest);
     }
 
